@@ -22,7 +22,7 @@ public class Manager {
 		
 		for(int i = 0; i < numAgentes; i++)
 		{
-			agentes[i] = new Thread(new Agente(buffer, semaphore));
+			agentes[i] = new Thread(new Produtor(buffer, semaphore));
 			agentes[i].start();
 		}
 	}

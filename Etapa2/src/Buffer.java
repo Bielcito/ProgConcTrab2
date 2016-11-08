@@ -1,13 +1,10 @@
 
-public class Buffer 
-{
+public class Buffer {
 	public Buffer(int maxTamanho)
 	{
-		inicio = 0;
-		fim = -1;
-		tamanho = 0;
 		this.maxTamanho = maxTamanho;
 		buffer = new Pedido[maxTamanho];
+		tamanho = -1;
 	}
 	
 	public Pedido remover()
@@ -18,8 +15,7 @@ public class Buffer
 		}
 		else
 		{
-			tamanho--;
-			return buffer[inicio++%maxTamanho];
+			return buffer[tamanho--];
 		}
 	}
 	
@@ -27,46 +23,20 @@ public class Buffer
 	{
 		if(!isFull())
 		{
-			tamanho++;
-			buffer[++fim%maxTamanho] = pedido;
+			buffer[++tamanho] = pedido;
 		}
 	}
 	
 	public Boolean isEmpty()
 	{
-		if(tamanho == 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return tamanho == -1;
 	}
 	
 	public Boolean isFull()
 	{
-		if(tamanho == maxTamanho-1)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return tamanho+1 == maxTamanho;
 	}
 	
-	public int getInicio()
-	{
-		return inicio;
-	}
-	
-	public int getFim()
-	{
-		return fim;
-	}
-	
-	private int inicio, fim;
 	private Pedido[] buffer;
 	private int maxTamanho;
 	private int tamanho;
