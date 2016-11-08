@@ -5,11 +5,18 @@ import java.util.concurrent.Semaphore;
 /**
  * 
  * @author LarissaNA
- * Construtor da classe Produtor que recebe o buffer o qual será preenchido por 
- * esta classe e o mutex que vai garantir a exclusão mútua entre os agentes.
+ * Classe produtor que vai inserir Pedidos no buffer que irá receber.
  */
 public class Produtor implements Runnable
 {
+	/**
+	 * Construtor da classe Produtor, inicializa variáveis e define um id único 
+	 * para cada instância.
+	 * @param buffer 
+	 * buffer que será preenchido
+	 * @param semaphore
+	 * semáforo que irá garantir a exclusão mútua entre produtores e consumidores.
+	 */
 	public Produtor(Buffer buffer, Semaphore semaphore)
 	{
 		this.buffer = buffer;
@@ -18,6 +25,10 @@ public class Produtor implements Runnable
 		id = ++sharedid;
 	}
 	
+	/**
+	 * Adiciona um pedido
+	 * @throws InterruptedException
+	 */
 	public void adicionarPedido() throws InterruptedException
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM HH:mm:ss.ms");
@@ -35,6 +46,9 @@ public class Produtor implements Runnable
 		semaphore.release();
 	}
 	
+	/**
+	 * Realiza as funções da thread, adicionando um pedido de tempos em tempos
+	 */
 	public synchronized void run()
 	{
 		while(!stop)
